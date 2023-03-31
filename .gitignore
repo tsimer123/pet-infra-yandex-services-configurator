@@ -29,3 +29,16 @@ override.tf.json
 # example: *tfplan*
 
 .idea
+
+.terraform.lock.*
+.terraform
+.terraform.tfstate*
+terraform.tfstate*
+.DS_Store
+tf.plan
+tfplan.json
+__autogen*.tf
+.env
+crash.log
+yc-access-key
+yc-secret-key

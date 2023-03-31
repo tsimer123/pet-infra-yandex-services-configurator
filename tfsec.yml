@@ -1,0 +1,9 @@
+exclude:
+  - azure-database-mysql-threat-detection-enabled
+  - azure-database-enable-ssl-enforcement
+  - azure-database-no-public-access
+  - azure-database-secure-tls-policy
+  - azure-keyvault-no-purge
+  - azure-keyvault-specify-network-acl
+  - azure-keyvault-ensure-secret-expiry
+  - azure-keyvault-content-type-for-secret
