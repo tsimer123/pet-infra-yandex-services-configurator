@@ -2,5 +2,6 @@
 	"name": "Alpine",
 	"build": {
 		"dockerfile": "Dockerfile"
-	}
+	},
+	"postAttachCommand": "pre-commit install && touch .env && make setup"
 }
