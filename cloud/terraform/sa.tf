@@ -22,3 +22,9 @@ resource "yandex_iam_service_account_static_access_key" "this" {
     yandex_iam_service_account.this
   ]
 }
+
+resource "yandex_iam_service_account_key" "this" {
+  service_account_id = yandex_iam_service_account.this.id
+  description        = "IAM key for Atlantis automation by GitHub Actions"
+  key_algorithm      = "RSA_4096"
+}
