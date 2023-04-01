@@ -18,7 +18,7 @@ help:
 	@echo "  ${YELLOW}init       ${RESET} Setup remote backend and run 'terraform init' at specific dir.   Usage: ${YELLOW}DIR${GREEN}=<dir> ${YELLOW}make${GREEN} init${RESET}"
 	@echo "  ${YELLOW}docs       ${RESET} Generate docs for all modules via 'terraform-docs'"
 	@echo "  ${YELLOW}plan       ${RESET} Run 'terraform plan' at specific dir.                            Usage: ${YELLOW}DIR${GREEN}=<dir> ${YELLOW}make${GREEN} plan${RESET}"
-	@echo "  ${YELLOW}unlock     ${RESET} Run 'terraform unlock' at specific dir.                          Usage: ${YELLOW}DIR${GREEN}=<dir> ${YELLOW}ID${GREEN}=<id> ${YELLOW}make${GREEN} unlock${RESET}"
+	@echo "  ${YELLOW}unlock     ${RESET} Run 'terraform force-unlock' at specific dir.                    Usage: ${YELLOW}DIR${GREEN}=<dir> ${YELLOW}ID${GREEN}=<id> ${YELLOW}make${GREEN} unlock${RESET}"
 	@echo "  ${YELLOW}list       ${RESET} Run 'terraform state list' at specific dir.                      Usage: ${YELLOW}DIR${GREEN}=<dir> ${YELLOW}make${GREEN} list"
 	@echo "  ${YELLOW}show       ${RESET} Run 'terraform state show' at specific dir.                      Usage: ${YELLOW}DIR${GREEN}=<dir> ${YELLOW}RES${GREEN}='<terraform resource>' ${YELLOW}make${GREEN} show${RESET}"
 	@echo "  ${YELLOW}apply      ${RESET} Run 'terraform apply' at specific dir.                           Usage: ${YELLOW}DIR${GREEN}=<dir> ${YELLOW}make${GREEN} apply${RESET}"
