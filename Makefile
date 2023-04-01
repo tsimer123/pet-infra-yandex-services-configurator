@@ -69,7 +69,7 @@ apply:
 	cd ${DIR} && terraform apply
 
 .PHONY: destroy
-apply:
+destroy:
 	cd ${DIR} && terraform destroy
 
 .PHONY: fmt
