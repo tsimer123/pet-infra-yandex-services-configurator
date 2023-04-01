@@ -20,6 +20,7 @@ help:
 	@echo "  ${YELLOW}plan            ${RESET} Run 'terraform plan' at specific dir. Usage DIR=<dir> make plan"
 	@echo "  ${YELLOW}unlock          ${RESET} Run 'terraform unlock' at specific dir. Usage DIR=<dir> ID=<id> make unlock"
 	@echo "  ${YELLOW}list            ${RESET} Run 'terraform state list' at specific dir. Usage DIR=<dir> make list"
+	@echo "  ${YELLOW}show            ${RESET} Run 'terraform state show' at specific dir. Usage DIR=<dir> RES='<terraform resource>' make show"
 	@echo "  ${YELLOW}apply           ${RESET} Run 'terraform apply' at specific dir. Usage DIR=<dir> make apply"
 	@echo "  ${YELLOW}rm              ${RESET} Run 'terraform state rm' at specific dir. Usage DIR=<dir> RES='<terraform resource>' make rm"
 	@echo "  ${YELLOW}import          ${RESET} Run 'terraform import' at specific dir. Usage DIR=<dir> RES='<terraform resource>' ID='<resource url>' make import"
@@ -57,6 +58,10 @@ import:
 .PHONY: list
 list:
 	cd ${DIR} && terraform state list
+
+.PHONY: show
+show:
+	cd ${DIR} && terraform state show '${RES}'
 
 .PHONY: apply
 apply:
