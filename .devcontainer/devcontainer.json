@@ -13,5 +13,5 @@
 			]
 		}
 	},
-	"postAttachCommand": "pre-commit install && touch .env && sed -i -e 's/\r$//' ./hacks/* && chmod +x ./hacks/* && make setup"
+	"postAttachCommand": "pre-commit install && touch .env && sed -i -e 's/\r$//' ./hacks/*.sh && chmod +x ./hacks/*.sh && make setup"
 }
