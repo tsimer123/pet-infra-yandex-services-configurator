@@ -11,4 +11,4 @@ users:
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
-      - ssh-rsa <undefined>
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaXSQajI6peYKL9sNa+hA0kLAdhNgl4cRCQBVg0SuVH
