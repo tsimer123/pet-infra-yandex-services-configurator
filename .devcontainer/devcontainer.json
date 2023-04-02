@@ -9,5 +9,5 @@
 		"foxundermoon.shell-format",
 		"marklarah.pre-commit-vscode"
 	],
-	"postAttachCommand": "pre-commit install && touch .env && make setup"
+	"postAttachCommand": "pre-commit install && touch .env && sed -i -e 's/\r$//' ./hacks/* && chmod +x ./hacks/* && make setup"
 }
