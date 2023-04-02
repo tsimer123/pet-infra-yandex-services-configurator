@@ -10,7 +10,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # TERRAFORM
 RUN cd /tmp && \
     version=1.4.4 && \
-    curl --output terraform.zip https://releases.hashicorp.com/terraform/${version}/terraform_${version}_linux_${TARGETARCH}.zip && \
+    curl -L --output terraform.zip https://hashicorp-releases.yandexcloud.net/terraform/${version}/terraform_${version}_linux_${TARGETARCH}.zip && \
     unzip terraform.zip -d /usr/local/bin && \
     rm -f terraform.zip
 
