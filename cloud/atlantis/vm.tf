@@ -7,8 +7,8 @@ module "this" {
   zone        = local.zone
   platform_id = "standard-v1"
   resources = {
-    cores  = 1
-    memory = 1
+    cores  = 2
+    memory = 2
   }
   boot_disk = {
     params = {
