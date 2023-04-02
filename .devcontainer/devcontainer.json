@@ -3,11 +3,15 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"extensions": [
-		"hashicorp.terraform",
-		"timonwong.shellcheck",
-		"foxundermoon.shell-format",
-		"marklarah.pre-commit-vscode"
-	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"hashicorp.terraform",
+				"timonwong.shellcheck",
+				"foxundermoon.shell-format",
+				"marklarah.pre-commit-vscode"
+			]
+		}
+	},
 	"postAttachCommand": "pre-commit install && touch .env && sed -i -e 's/\r$//' ./hacks/* && chmod +x ./hacks/* && make setup"
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cloud_id=b1g4vva7tlne0vi7o5v2
-folder_id=b1gtq6egur5md8hg9koh
+folder_id=b1gc4icvp3odr1k2i4pi
 
 yc init --cloud-id=${cloud_id} --folder-id=${folder_id}
 
