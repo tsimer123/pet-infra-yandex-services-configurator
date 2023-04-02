@@ -6,6 +6,8 @@ YELLOW := $(shell tput -Txterm setaf 3)
 WHITE  := $(shell tput -Txterm setaf 7)
 RESET  := $(shell tput -Txterm sgr0)
 
+SCRIPT_DIR = $(shell pwd)
+
 .PHONY: help
 help:
 	@echo ''
@@ -28,15 +30,15 @@ help:
 
 .PHONY: setup
 setup:
-	./hacks/setup-env.sh
+	${SCRIPT_DIR}/hacks/setup-env.sh
 
 .PHONY: init
 init:
-	./hacks/init.sh ${DIR}
+	${SCRIPT_DIR}/hacks/init.sh ${DIR}
 
 .PHONY: docs
 docs:
-	./hacks/terraform-docs.sh -a true -s false
+	${SCRIPT_DIR}/hacks/terraform-docs.sh -a true -s false
 
 .PHONY: plan
 plan:
@@ -76,4 +78,4 @@ lint-all:
 
 .PHONY: conftest
 conftest:
-	conftest verify -p ./policies --report notes
+	conftest verify -p ${SCRIPT_DIR}/policies --report notes
