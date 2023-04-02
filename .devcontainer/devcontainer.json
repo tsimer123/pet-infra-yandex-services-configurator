@@ -3,5 +3,11 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
+	"extensions": [
+		"hashicorp.terraform",
+		"timonwong.shellcheck",
+		"foxundermoon.shell-format",
+		"marklarah.pre-commit-vscode"
+	],
 	"postAttachCommand": "pre-commit install && touch .env && make setup"
 }
