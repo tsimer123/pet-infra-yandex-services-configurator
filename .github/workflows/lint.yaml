@@ -4,7 +4,7 @@ name: Run terraform linters
 on:
   push:
     branches-ignore:
-      - 'master'
+      - 'main'
 
 jobs:
   prepare:
@@ -20,9 +20,9 @@ jobs:
       id: prepare
       shell: bash
       run: |
-        git fetch origin master --depth=1
+        git fetch origin main --depth=1
         TF_FOLDERS=$(find . -name "*.tf" -exec dirname {} \; | sed 's/^.\///' | sort | uniq)
-        DIFF_FOLDERS=$(git diff --name-only origin/master "${{ github.sha }}" . | xargs dirname | sort | uniq)
+        DIFF_FOLDERS=$(git diff --name-only origin/main "${{ github.sha }}" . | xargs dirname | sort | uniq)
         TF_LINT_FOLDERS=$(comm -12 <(printf '%s\n' "${TF_FOLDERS[@]}" | LC_ALL=C sort) <(printf '%s\n' "${DIFF_FOLDERS[@]}" | LC_ALL=C sort))
         echo "tf_lint_folders=$(echo ${TF_LINT_FOLDERS})" >> $GITHUB_OUTPUT
 
