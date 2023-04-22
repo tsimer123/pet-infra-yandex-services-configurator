@@ -1,0 +1,83 @@
+---
+name: Run terraform linters
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  prepare:
+    name: Prepare variables
+    runs-on: ubuntu-latest
+    outputs:
+      tf_lint_folders: ${{ steps.prepare.outputs.tf_lint_folders }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Prepare variables
+      id: prepare
+      shell: bash
+      run: |
+        git fetch origin main --depth=1
+        TF_FOLDERS=$(find . -name "*.tf" -exec dirname {} \; | sed 's/^.\///' | sort | uniq)
+        DIFF_FOLDERS=$(git diff --name-only origin/main "${{ github.sha }}" . | xargs dirname | sort | uniq)
+        TF_LINT_FOLDERS=$(comm -12 <(printf '%s\n' "${TF_FOLDERS[@]}" | LC_ALL=C sort) <(printf '%s\n' "${DIFF_FOLDERS[@]}" | LC_ALL=C sort))
+        echo "tf_lint_folders=$(echo ${TF_LINT_FOLDERS})" >> $GITHUB_OUTPUT
+
+  lint:
+    name: Run terraform linters
+    runs-on: ubuntu-latest
+    needs:
+    - prepare
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.3.4
+
+    - name: Setup TFLint
+      uses: terraform-linters/setup-tflint@v3
+      with:
+        tflint_version: v0.42.2
+
+    - name: Terraform init
+      run: |
+        for f in ${{ needs.prepare.outputs.tf_lint_folders }}; do
+          echo "terraform init at folder ${f}"
+          (cd $f && terraform init -backend=false);
+        done
+
+    - name: Terraform fmt
+      run: |
+        for f in ${{ needs.prepare.outputs.tf_lint_folders }}; do (cd $f && terraform fmt); done
+        if [[ $(git diff --stat) != '' ]]; then
+          git diff
+          echo "run 'DIR=${f} make fmt' and commit changes"
+          exit 1
+        fi
+
+    - name: Terraform validate
+      run: |
+        for f in ${{ needs.prepare.outputs.tf_lint_folders }}; do (cd $f && terraform validate); done
+
+    - name: TFLint
+      run: |
+        tflint --init --config=.tflint.hcl
+        for f in ${{ needs.prepare.outputs.tf_lint_folders }}; do (tflint --config=.tflint.hcl $f); done
+
+    - name: tfsec
+      env:
+        TFSEC_VERSION: 1.19.1
+      run: |
+        curl -LO https://github.com/aquasecurity/tfsec/releases/download/v${TFSEC_VERSION}/tfsec-linux-amd64
+        chmod +x tfsec-linux-amd64
+        tfsec="$(pwd)/tfsec-linux-amd64"
+        tfsec_config="$(pwd)/tfsec.yml"
+        for f in ${{ needs.prepare.outputs.tf_lint_folders }}; do
+          (cd $f && $tfsec --config-file $tfsec_config);
+        done
