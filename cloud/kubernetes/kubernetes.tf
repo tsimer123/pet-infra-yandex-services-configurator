@@ -1,5 +1,5 @@
 resource "yandex_kubernetes_cluster" "this" {
-  name      = "Kubernetes"
+  name      = "kubernetes"
   folder_id = yandex_resourcemanager_folder.this.id
 
   node_service_account_id = yandex_iam_service_account.this.id
