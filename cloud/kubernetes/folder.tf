@@ -5,3 +5,7 @@ resource "yandex_resourcemanager_folder" "this" {
 
   labels = local.labels
 }
+
+data "yandex_resourcemanager_folder" "network" {
+  name = "network"
+}
