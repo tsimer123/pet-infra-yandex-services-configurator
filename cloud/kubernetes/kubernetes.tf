@@ -5,7 +5,10 @@ resource "yandex_kubernetes_cluster" "this" {
   node_service_account_id = yandex_iam_service_account.this.id
   service_account_id      = yandex_iam_service_account.this.id
 
-  network_id = data.yandex_vpc_network.this.id
+  network_id               = data.yandex_vpc_network.this.id
+  cluster_ipv4_range       = "10.7.0.0/16"
+  service_ipv4_range       = "10.8.0.0/16"
+  node_ipv4_cidr_mask_size = "24"
 
   master {
     zonal {
@@ -33,6 +36,7 @@ resource "yandex_kubernetes_cluster" "this" {
 
   depends_on = [
     yandex_resourcemanager_folder_iam_member.editor,
-    yandex_resourcemanager_folder_iam_member.images_puller
+    yandex_resourcemanager_folder_iam_member.images_puller,
+    yandex_resourcemanager_folder_iam_member.load_balancer_admin
   ]
 }

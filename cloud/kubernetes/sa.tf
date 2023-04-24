@@ -17,3 +17,10 @@ resource "yandex_resourcemanager_folder_iam_member" "images_puller" {
   role      = "container-registry.images.puller"
   member    = "serviceAccount:${yandex_iam_service_account.this.id}"
 }
+
+resource "yandex_resourcemanager_folder_iam_member" "load_balancer_admin" {
+  # Сервисному аккаунту назначается роль "load-balancer.admin".
+  folder_id = yandex_resourcemanager_folder.this.id
+  role      = "load-balancer.admin"
+  member    = "serviceAccount:${yandex_iam_service_account.this.id}"
+}
