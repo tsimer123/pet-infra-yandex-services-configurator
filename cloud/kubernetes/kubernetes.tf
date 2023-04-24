@@ -37,7 +37,6 @@ resource "yandex_kubernetes_cluster" "this" {
 
   depends_on = [
     yandex_resourcemanager_folder_iam_member.kube_sa_cluster_agent,
-    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_vpc,
     yandex_resourcemanager_folder_iam_member.kube_sa_cluster_nlb,
     yandex_resourcemanager_folder_iam_member.kube_sa_node_cr,
     yandex_resourcemanager_folder_iam_member.kube_sa_cluster_editor,
