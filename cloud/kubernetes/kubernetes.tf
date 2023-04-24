@@ -37,6 +37,8 @@ resource "yandex_kubernetes_cluster" "this" {
   depends_on = [
     yandex_resourcemanager_folder_iam_member.editor,
     yandex_resourcemanager_folder_iam_member.images_puller,
-    yandex_resourcemanager_folder_iam_member.load_balancer_admin
+    yandex_resourcemanager_folder_iam_member.load_balancer_admin,
+    yandex_resourcemanager_folder_iam_member.kubernetes_vpc_admin,
+    yandex_resourcemanager_folder_iam_member.network_vpc_admin,
   ]
 }

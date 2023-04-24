@@ -24,3 +24,17 @@ resource "yandex_resourcemanager_folder_iam_member" "load_balancer_admin" {
   role      = "load-balancer.admin"
   member    = "serviceAccount:${yandex_iam_service_account.this.id}"
 }
+
+resource "yandex_resourcemanager_folder_iam_member" "kubernetes_vpc_admin" {
+  # Сервисному аккаунту назначается роль "load-balancer.admin".
+  folder_id = yandex_resourcemanager_folder.this.id
+  role      = "vpc.admin"
+  member    = "serviceAccount:${yandex_iam_service_account.this.id}"
+}
+
+resource "yandex_resourcemanager_folder_iam_member" "network_vpc_admin" {
+  # Сервисному аккаунту назначается роль "load-balancer.admin".
+  folder_id = data.yandex_resourcemanager_folder.network.id
+  role      = "vpc.admin"
+  member    = "serviceAccount:${yandex_iam_service_account.this.id}"
+}
