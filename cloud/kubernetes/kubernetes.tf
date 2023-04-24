@@ -28,7 +28,7 @@ resource "yandex_kubernetes_cluster" "this" {
     }
   }
 
-  release_channel         = "RAPID"
+  release_channel         = "REGULAR"
   network_policy_provider = "CALICO"
 
   kms_provider {
