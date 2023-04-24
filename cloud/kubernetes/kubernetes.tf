@@ -1,9 +1,10 @@
 resource "yandex_kubernetes_cluster" "this" {
-  name      = "kubernetes"
-  folder_id = yandex_resourcemanager_folder.this.id
+  name        = "kubernetes-${random_string.kube_suffix.result}"
+  description = "kube-${random_string.kube_suffix.result} - cluster"
+  folder_id   = yandex_resourcemanager_folder.this.id
 
-  node_service_account_id = yandex_iam_service_account.this.id
-  service_account_id      = yandex_iam_service_account.this.id
+  node_service_account_id = yandex_iam_service_account.kube_sa_node.id
+  service_account_id      = yandex_iam_service_account.kube_sa_cluster.id
 
   network_id               = data.yandex_vpc_network.this.id
   cluster_ipv4_range       = "10.7.0.0/16"
@@ -35,10 +36,12 @@ resource "yandex_kubernetes_cluster" "this" {
   }
 
   depends_on = [
-    yandex_resourcemanager_folder_iam_member.editor,
-    yandex_resourcemanager_folder_iam_member.images_puller,
-    yandex_resourcemanager_folder_iam_member.load_balancer_admin,
-    yandex_resourcemanager_folder_iam_member.kubernetes_vpc_admin,
-    yandex_resourcemanager_folder_iam_member.network_vpc_admin,
+    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_agent,
+    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_vpc,
+    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_nlb,
+    yandex_resourcemanager_folder_iam_member.kube_sa_node_cr,
+    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_editor,
+    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_editor_network,
+    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_vpc_network,
   ]
 }
