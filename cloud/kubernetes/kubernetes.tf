@@ -13,6 +13,22 @@ resource "yandex_kubernetes_cluster" "this" {
       subnet_id = data.yandex_vpc_subnet.kube.id
     }
     public_ip = true
+
+    maintenance_policy {
+      auto_upgrade = false
+
+      maintenance_window {
+        start_time = "00:00"
+        duration   = "3h"
+      }
+    }
+  }
+
+  release_channel         = "RAPID"
+  network_policy_provider = "CALICO"
+
+  kms_provider {
+    key_id = yandex_kms_symmetric_key.this.id
   }
 
   depends_on = [
