@@ -1,5 +1,5 @@
 resource "yandex_kubernetes_cluster" "this" {
-  name        = "kubernetes-${random_string.kube_suffix.result}"
+  name        = "kube-${random_string.kube_suffix.result}"
   description = "kube-${random_string.kube_suffix.result} - cluster"
   folder_id   = yandex_resourcemanager_folder.this.id
 
@@ -36,11 +36,9 @@ resource "yandex_kubernetes_cluster" "this" {
   }
 
   depends_on = [
-    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_agent,
-    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_nlb,
-    yandex_resourcemanager_folder_iam_member.kube_sa_node_cr,
-    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_editor,
-    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_editor_network,
-    yandex_resourcemanager_folder_iam_member.kube_sa_cluster_vpc_network,
+    # yandex_resourcemanager_folder_iam_member.kube_sa_cluster_agent,
+    # yandex_resourcemanager_folder_iam_member.kube_sa_cluster_nlb,
+    # yandex_resourcemanager_folder_iam_member.kube_sa_node_cr,
+    # yandex_resourcemanager_folder_iam_member.kube_sa_cluster_vpc_network,
   ]
 }
